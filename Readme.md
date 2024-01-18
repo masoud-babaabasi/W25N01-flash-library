@@ -39,3 +39,19 @@ You can use the FATFS library with the W25N01 chip like this:
         // use f_open , f_write , f_read, f_close and ... to modify the content of the chip
     }
 ```
+
+## NEW! Added SPI library
+A variant that supports two W25N01 chips via SPI peripheral is added. MISO, MOSI, and SCK pins are shared between the chips, and each one has a separate CS pin. The used hardware spi and chip selects are defined in the `w25nxx_SPI_Dual.h` file as below:
+```C
+//define the SPI Handle type
+#define W25_SPI hspi2
+
+// define CS pin 
+#define W25_CS1_PIN   SPI2_CS1_Pin
+#define W25_CS1_PORT  SPI2_CS1_GPIO_Port
+
+#define W25_CS2_PIN   SPI2_CS2_Pin
+#define W25_CS2_PORT  SPI2_CS2_GPIO_Port
+```
+In the example code above, I have defined the SPI2_CSx_Pin as outputs in the cubeIDE software.
+The userdiskIO file is added to the `FATFS` folder as well. All other library porting steps are the same as the QSPI library.
